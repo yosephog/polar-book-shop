@@ -1,0 +1,35 @@
+server:
+  port: 9001
+  tomcat:
+    connection-timeout: 2s
+    keep-alive-timeouts: 5s
+    threads:
+      max: 50
+      min-spare: 5
+
+spring:
+  datasource:
+    username: user
+    password: password
+    url: jdbc:postgresql://localhost:5432/polar-book-shop-db
+    hikari:
+      connection-timeout: 2000
+      maximum-pool-size: 5
+  sql:
+    init:
+      mode: always
+  jpa:
+    hibernate.ddl-auto: update
+    generateDdl: false
+    showSql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  application:
+    name: polar-book-shop
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+polar:
+  greeting: Welcome to the local book catalog!

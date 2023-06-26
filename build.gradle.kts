@@ -1,6 +1,6 @@
 plugins {
 	java
-	id("org.springframework.boot") version "3.0.8"
+	id("org.springframework.boot") version "3.1.1"
 	id("io.spring.dependency-management") version "1.1.0"
 }
 
@@ -35,6 +35,13 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
+	// https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
+	implementation("javax.persistence:javax.persistence-api:2.2")
+	// https://mvnrepository.com/artifact/javax.validation/validation-api
+	implementation("javax.validation:validation-api:2.0.1.Final")
+	implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
+
+
 }
 
 dependencyManagement {
