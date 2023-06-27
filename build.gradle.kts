@@ -29,7 +29,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	compileOnly("org.projectlombok:lombok")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")
