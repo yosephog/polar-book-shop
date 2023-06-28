@@ -12,7 +12,7 @@ import javax.validation.Valid;
 @RequestMapping("books")
 @RequiredArgsConstructor
 public class BookController {
-    private BookService bookService;
+    private final BookService bookService;
 
     @GetMapping
     public Iterable<Book> get() {
