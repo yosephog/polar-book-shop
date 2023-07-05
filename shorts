@@ -1,0 +1,76 @@
+./gradlew test -: run the test
+./gradlew bootRun -: to run the project
+./gradlew bootBuildImage -: to build the project in to an image
+ docker images catalog-service:0.0.1-SNAPSHOT -: TO Chek on the newly created image
+docker run --rm --name catalog-service -p 8080:8080 catalog-service:0.0.1-SNAPSHOT -: TO RUN the image and expose it on port 8080
+
+$ minikube start -: to start a kubernatics cluster
+$ minikube image load catalog-service:0.0.1-SNAPSHOT -: TO LOAD THE CREATED IMAGE TO THE MINIKUBE
+
+kubectl get deployment -: get all the deployed resource
+kubectl get pods
+kubectl delete deployments **
+ kubectl create deployment catalog-service \
+   --image=catalog-service:0.0.1-SNAPSHOT  --: in order to deploy the resource
+
+ kubectl expose deployment catalog-service --name=catalog-service --port=8080
+ kubectl get service catalog-service
+ kubectl delete service catalog-service
+ kubectl port-forward service/catalog-service 8000:8080 -: ow whenever you access port 8000 on your localhost,
+    you will be forwarded to the Service inside the Kubernetes cluster responsible for exposing the Catalog Service application
+
+
+$ ./gradlew bootJar build the project as jar
+$ ./gradlew test --tests BookValidationTests
+since it is by default saved in build/libs
+$ java -jar build/libs/catalog-service-0.0.1-SNAPSHOT.jar
+./gradlew clean build  it builds and runs the test do that before deployment to check everything is ok
+
+
+
+
+
+
+
+./mnw bootBuildImage -> in order to build docker image of a springboot application
+
+docker images catalog-service:0.0.1-SNAPSHOT -> to get the detail of the created image called catalog-service....
+
+docker run --rm --name catalog-service -p 8080:8080 \catalog-service:0.0.1-SNAPSHOT -: to run the image
+docker run -> runs a container from an image
+--rm  -> remove the container after it's excution completes
+--name .. -> name of the container
+-p 8080:8080 -> exposes service outside teh container through port 8080
+catalog-service:0.0.1-SNAPSHOT -> name and version of the image
+
+-install kubernates and minikube
+
+minikube image load catalog-service:0.0.1-SNAPSHOT
+kubectl create deployment catalog-service --image=catalog-service:0.0.1-SNAPSHOT
+kubectl create deployemnt -> creates a kubernetes resource
+catalog-service -> name of the deployemnt
+--image=catalog-service ... -> name and verson of the image to run
+
+kubectl get deployment -> check deployemnt object
+
+kubectl get pod
+
+kubectl expose deployment catalog-service --name=catalog-service --port=8080 -> expose catalog service. application running
+on kubernetes ar not accessible.
+
+kubectl get service catalog-service -> check the sevice object exposes the application to other component inside the cluster
+
+kubectl port-forward service/catalog-service 8000:8080
+
+$ docker run -d \
+    --name polar-postgres \
+    -e POSTGRES_USER=user \
+    -e POSTGRES_PASSWORD=password \
+    -e POSTGRES_DB=polardb_catalog \
+    -p 5432:5432 \
+    postgres:14.4
+
+add postgres from the docker hub with the db and password and username given as a parameter
+
+
+
