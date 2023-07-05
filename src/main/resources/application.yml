@@ -1,28 +1,36 @@
-server:
-  port: 9001
-  tomcat:
-    connection-timeout: 2s
-    keep-alive-timeouts: 5s
-    threads:
-      max: 50
-      min-spare: 5
+name: Commit Stage
+on: push
 
-spring:
-  sql:
-    init:
-      mode: always
-  datasource:
-    username: user
-    password: password
-    url: jdbc:postgresql://localhost:5432/polardb_catalog
-    hikari:
-      connection-timeout: 2000
-      maximum-pool-size: 5
-  application:
-    name: polar-book-shop
-  cloud:
-    config:
-      uri: http://localhost:8888
-
-polar:
-  greeting: Welcome to the local book catalog!
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+      - name: Code vulnerability scanning
+        uses: anchore/scan-action@v3
+        id: scan
+        with:
+          path: "${{ github.workspace }}"
+          fail-build: false
+          severity-cutoff: high
+          acs-report-enable: true
+      - name: Upload vulnerability report
+        uses: github/codeql-action/upload-sarif@v2
+        if: success() || failure()
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif }}
+      - name: Build, unit tests and integration tests
+        run: |
+          chmod +x gradlew
+          ./gradlew build
