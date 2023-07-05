@@ -3,9 +3,7 @@ package com.polar.bookshop.domain;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -15,6 +13,7 @@ import java.time.Instant;
 @Entity
 public record Book(
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         Long id,
         @NotBlank(message = "The book ISBN must be defined.")
         @Pattern(regexp = "^([0-9]{10}|[0-9]{13})$",
